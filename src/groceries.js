@@ -10,6 +10,7 @@ export class Groceries extends Component {
     item: '',
     units: '',
     quantity: 0,
+    groceryMap: [],
     isPurchased: false,
   };
   handleChange = (e) => {
@@ -40,11 +41,13 @@ export class Groceries extends Component {
   // Make inputs so that new items can be added
   inputs = () => {
     console.log('here');
+
     this.setState({
       item: '',
       units: '',
       quantity: 0,
     });
+    // }
   };
 
   render() {
@@ -95,13 +98,15 @@ export class Groceries extends Component {
         <div>
           <h2>Your Grocery List</h2>
 
-          {/* Need a Map to iterate */}
-          <h4>{this.state.groceries}</h4>
+          {/* Map to iterate */}
+          {this.state.groceries.map((groceries) => (
+            <h4>{groceries} </h4>
+          ))}
 
-          <h4>Item: {this.state.groceries[0]}</h4>
+          {/* <h4>Item: {this.state.groceries[0]}</h4>
           <h4>Quantity: {this.state.groceries[2]}</h4>
 
-          <h4>Unit: {this.state.groceries[1]}</h4>
+          <h4>Unit: {this.state.groceries[1]}</h4> */}
         </div>
 
         {/* <button onClick={() => this.inputs()}>Input a grocery</button>
