@@ -53,8 +53,9 @@ export class Groceries extends Component {
     // Then render the item, quantity and units (12 pack, 1lb, 2 liters, etc.)
     return (
       <div>
+        <h1>Make A Grocery List</h1>
         <form id='input_form' onSubmit={this.handleSubmit}>
-          <lable htmlFor='item'>Add Grocery Item</lable>
+          <lable htmlFor='item'>Item</lable>
           <input
             id='item'
             onChange={this.handleChange}
@@ -82,7 +83,11 @@ export class Groceries extends Component {
         </form>
 
         {/* Add Another Grocery */}
-        <button value='Reset data' onClick={() => this.inputs()}>
+        <button
+          className='add_another_btn'
+          value='Reset data'
+          onClick={() => this.inputs()}
+        >
           Add Another Item
         </button>
 
