@@ -4,3 +4,13 @@ form {
 .add_another_btn {
   margin-top: 1rem;
 }
+.grocery_container {
+  display: grid;
+  grid-template-columns: 12rem;
+  justify-content: center;
+  border: 1px solid black;
+}
+.grocery_response {
+  display: grid;
+  border: 1px solid black;
+}

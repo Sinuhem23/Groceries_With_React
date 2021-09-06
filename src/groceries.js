@@ -26,9 +26,15 @@ export class Groceries extends Component {
       // groceries: [this.state.item, this.state.units, this.state.quantity],
     });
     if (e) {
-      this.state.groceries.push([this.state.item]);
-      this.state.groceries.push([this.state.units]);
-      this.state.groceries.push([this.state.quantity]);
+      this.state.groceries.push([
+        {
+          item: this.state.item,
+          quantity: this.state.quantity,
+          units: this.state.units,
+        },
+      ]);
+      // this.state.groceries.push([this.state.quantity]);
+      // this.state.groceries.push([this.state.units]);
     }
   };
 
@@ -74,13 +80,16 @@ export class Groceries extends Component {
             type='text'
           />
 
-          <lable htmlFor='units'>Units</lable>
-          <input
+          <select
             id='units'
             onChange={this.handleChange}
             value={this.state.units}
-            type='text'
-          />
+          >
+            <option>liters (L)</option>
+            <option>millilitres (mL) </option>
+            <option>grams (g)</option>
+            <option>kilograms (kg)</option>
+          </select>
 
           <button onClick={() => this.componentDidMount()}>Submit</button>
         </form>
@@ -99,9 +108,9 @@ export class Groceries extends Component {
           <h2>Your Grocery List</h2>
 
           {/* Map to iterate */}
-          {this.state.groceries.map((groceries) => (
-            <h4>{groceries} </h4>
-          ))}
+          <div>
+            <h4>{this.state.groceries.map(() => `${this.state.groceries}`)}</h4>
+          </div>
 
           {/* <h4>Item: {this.state.groceries[0]}</h4>
           <h4>Quantity: {this.state.groceries[2]}</h4>
