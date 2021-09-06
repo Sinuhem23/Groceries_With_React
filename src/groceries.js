@@ -6,49 +6,28 @@ Add some style to your app
 */
 export class Groceries extends Component {
   state = {
-    groceries: [{ id: 0, item: '', units: '', quantity: 0 }],
-
-    isPurchased: false,
+    groceries: [],
   };
   handleChange = (e) => {
-    console.log(e);
     this.setState({ [e.target.id]: e.target.value });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
 
-    // this.setState({
-    //   isPurchased: true,
-    // groceries: [this.state.item, this.state.units, this.state.quantity],
-    // });
-    // this.setState({
-    //   groceries: [
-    //     {
-    //       item: this.state.item,
-    //       quantity: this.state.quantity,
-    //       units: this.state.units,
-    //     },
-    //   ],
-    // });
-
-    // this.state.groceries.map((groceries) => {
-    // this.setState({
-    //   groceries: [
-    //     {
-    //       id: groceries.id + 1,
-    //       item: this.state.item,
-    //       quantity: this.state.quantity,
-    //       units: this.state.units,
-    //     },
-    //   ],
-    // });
-
     this.state.groceries.push({
       id: this.state.groceries.length,
       item: this.state.item,
       quantity: this.state.quantity,
       units: this.state.units,
+      isPurchased: false,
+    });
+    this.setState({
+      id: '',
+      item: '',
+      units: '',
+      quantity: 0,
+      isPurchased: false,
     });
     // });
   };
@@ -70,20 +49,20 @@ export class Groceries extends Component {
   }
 
   // Make inputs so that new items can be added
-  inputs = () => {
-    console.log('here');
-
+  delete = (id) => {
     this.setState({
-      id: '',
-      item: '',
-      units: '',
-      quantity: 0,
+      groceries: this.state.groceries.filter((item) => {
+        return item.id !== id;
+      }),
     });
+    this.state.groceries.splice(id);
+    // console.log(this.state.groceries);
+    this.setState({});
     // }
   };
 
   render() {
-    console.log('form data: ', this.state);
+    // console.log('form data: ', this.state);
 
     // Then render the item, quantity and units (12 pack, 1lb, 2 liters, etc.)
     return (
@@ -118,33 +97,27 @@ export class Groceries extends Component {
             <option>kilograms (kg)</option>
           </select>
 
-          <button onClick={() => this.componentDidMount()}>Submit</button>
+          <button type='submit'>Submit</button>
         </form>
-
-        {/* Add Another Grocery */}
-        <button
-          className='add_another_btn'
-          value='Reset data'
-          onClick={() => this.inputs()}
-        >
-          Add To List
-        </button>
 
         {/* Display List */}
         <div>
-          <h2>Your Grocery List</h2>
+          <h2>Cart</h2>
 
           {/* Map to iterate */}
           <div>
-            <ol>
-              {this.state.groceries.map((grocery) => (
-                <li key={grocery.id}>
+            <ol className='ol_info'>
+              {this.state.groceries.map((grocery, idx) => (
+                <li key={idx}>
                   Item:{' ' + grocery.item + ' '}
                   Quantity:{' ' + grocery.quantity + ' '}
                   Units:{grocery.units + ' '}
-                  {/* <button onClick={() => this.remove}>Remove</button> */}
+                  <button onClick={() => this.delete(idx)}>Remove</button>
                 </li>
               ))}
+              <button onClick={() => console.log(this.state.groceries)}>
+                Checkout
+              </button>
             </ol>
             {/* <h4>{this.state.groceries.map[() => this.state.groceries.item]}</h4> */}
           </div>

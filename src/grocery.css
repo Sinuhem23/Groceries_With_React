@@ -4,13 +4,36 @@ form {
 .add_another_btn {
   margin-top: 1rem;
 }
-.grocery_container {
+/* .grocery_container {
   display: grid;
   grid-template-columns: 12rem;
   justify-content: center;
+  border: 1px solid black;
+}
+.form_reponse_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   border: 1px solid black;
 }
 .grocery_response {
   display: grid;
   border: 1px solid black;
 }
+
+.ol_info {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+.your_grocery_list_text {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 12%;
+
+  padding: 3rem;
+}
+.input_form {
+  display: grid;
+  padding: 1rem;
+  justify-content: center;
+} */
