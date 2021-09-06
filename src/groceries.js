@@ -6,11 +6,8 @@ Add some style to your app
 */
 export class Groceries extends Component {
   state = {
-    groceries: [],
-    item: '',
-    units: '',
-    quantity: 0,
-    groceryMap: [],
+    groceries: [{ id: 0, item: '', units: '', quantity: 0 }],
+
     isPurchased: false,
   };
   handleChange = (e) => {
@@ -21,25 +18,53 @@ export class Groceries extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    this.setState({
-      isPurchased: true,
-      // groceries: [this.state.item, this.state.units, this.state.quantity],
-    });
-    if (e) {
-      this.state.groceries.push([
-        {
-          item: this.state.item,
-          quantity: this.state.quantity,
-          units: this.state.units,
-        },
-      ]);
-      // this.state.groceries.push([this.state.quantity]);
-      // this.state.groceries.push([this.state.units]);
-    }
-  };
+    // this.setState({
+    //   isPurchased: true,
+    // groceries: [this.state.item, this.state.units, this.state.quantity],
+    // });
+    // this.setState({
+    //   groceries: [
+    //     {
+    //       item: this.state.item,
+    //       quantity: this.state.quantity,
+    //       units: this.state.units,
+    //     },
+    //   ],
+    // });
 
-  // Make an array of 3 objects.
-  // arr = { item: '', units: '', quantity: 0, isPurchased: false };
+    // this.state.groceries.map((groceries) => {
+    // this.setState({
+    //   groceries: [
+    //     {
+    //       id: groceries.id + 1,
+    //       item: this.state.item,
+    //       quantity: this.state.quantity,
+    //       units: this.state.units,
+    //     },
+    //   ],
+    // });
+
+    this.state.groceries.push({
+      id: this.state.groceries.length,
+      item: this.state.item,
+      quantity: this.state.quantity,
+      units: this.state.units,
+    });
+    // });
+  };
+  // add = (grocery) => {
+  //   this.setState((state) => ({
+  //     groceries: [
+  //       ...state.groceries,
+  //       grocery.id + 1,
+  //       grocery.item,
+  //       grocery.quantity,
+  //       grocery.units,
+  //     ],
+  //     isPurchased: true,
+  //   }));
+  // };
+
   componentDidMount() {
     console.log('Component Mounted');
   }
@@ -49,6 +74,7 @@ export class Groceries extends Component {
     console.log('here');
 
     this.setState({
+      id: '',
       item: '',
       units: '',
       quantity: 0,
@@ -85,6 +111,7 @@ export class Groceries extends Component {
             onChange={this.handleChange}
             value={this.state.units}
           >
+            <option>Select Unit</option>
             <option>liters (L)</option>
             <option>millilitres (mL) </option>
             <option>grams (g)</option>
@@ -100,7 +127,7 @@ export class Groceries extends Component {
           value='Reset data'
           onClick={() => this.inputs()}
         >
-          Add Another Item
+          Add To List
         </button>
 
         {/* Display List */}
@@ -109,7 +136,17 @@ export class Groceries extends Component {
 
           {/* Map to iterate */}
           <div>
-            <h4>{this.state.groceries.map(() => `${this.state.groceries}`)}</h4>
+            <ol>
+              {this.state.groceries.map((grocery) => (
+                <li key={grocery.id}>
+                  Item:{' ' + grocery.item + ' '}
+                  Quantity:{' ' + grocery.quantity + ' '}
+                  Units:{grocery.units + ' '}
+                  {/* <button onClick={() => this.remove}>Remove</button> */}
+                </li>
+              ))}
+            </ol>
+            {/* <h4>{this.state.groceries.map[() => this.state.groceries.item]}</h4> */}
           </div>
 
           {/* <h4>Item: {this.state.groceries[0]}</h4>
