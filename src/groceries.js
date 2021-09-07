@@ -7,6 +7,7 @@ Add some style to your app
 export class Groceries extends Component {
   state = {
     groceries: [],
+    purchased_groceries: [],
   };
   handleChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
@@ -31,22 +32,16 @@ export class Groceries extends Component {
     });
     // });
   };
-  // add = (grocery) => {
-  //   this.setState((state) => ({
-  //     groceries: [
-  //       ...state.groceries,
-  //       grocery.id + 1,
-  //       grocery.item,
-  //       grocery.quantity,
-  //       grocery.units,
-  //     ],
-  //     isPurchased: true,
-  //   }));
-  // };
 
   componentDidMount() {
     console.log('Component Mounted');
   }
+  checkout = () => {
+    this.setState({
+      isPurchased: true,
+      purchased_groceries: this.state.groceries,
+    });
+  };
 
   // Make inputs so that new items can be added
   delete = (id) => {
@@ -60,6 +55,9 @@ export class Groceries extends Component {
     this.setState({});
     // }
   };
+  startOver = () => {
+    window.location.reload();
+  };
 
   render() {
     // console.log('form data: ', this.state);
@@ -68,40 +66,42 @@ export class Groceries extends Component {
     return (
       <div>
         <h1>Make A Grocery List</h1>
-        <form id='input_form' onSubmit={this.handleSubmit}>
-          <lable htmlFor='item'>Item</lable>
-          <input
-            id='item'
-            onChange={this.handleChange}
-            value={this.state.item}
-            type='text'
-          />
+        <div className='form_container'>
+          <form id='input_form' onSubmit={this.handleSubmit}>
+            <lable htmlFor='item'>Item</lable>
+            <input
+              id='item'
+              onChange={this.handleChange}
+              value={this.state.item}
+              type='text'
+            />
 
-          <lable htmlFor='quantity'>Quantity</lable>
-          <input
-            id='quantity'
-            onChange={this.handleChange}
-            value={this.state.quantity}
-            type='text'
-          />
+            <lable htmlFor='quantity'>Quantity</lable>
+            <input
+              id='quantity'
+              onChange={this.handleChange}
+              value={this.state.quantity}
+              type='text'
+            />
 
-          <select
-            id='units'
-            onChange={this.handleChange}
-            value={this.state.units}
-          >
-            <option>Select Unit</option>
-            <option>liters (L)</option>
-            <option>millilitres (mL) </option>
-            <option>grams (g)</option>
-            <option>kilograms (kg)</option>
-          </select>
+            <select
+              id='units'
+              onChange={this.handleChange}
+              value={this.state.units}
+            >
+              <option>Select Unit</option>
+              <option>liters (L)</option>
+              <option>millilitres (mL) </option>
+              <option>grams (g)</option>
+              <option>kilograms (kg)</option>
+            </select>
 
-          <button type='submit'>Submit</button>
-        </form>
+            <button type='submit'>Submit</button>
+          </form>
+        </div>
 
         {/* Display List */}
-        <div>
+        <div className='display_list_container'>
           <h2>Cart</h2>
 
           {/* Map to iterate */}
@@ -115,11 +115,34 @@ export class Groceries extends Component {
                   <button onClick={() => this.delete(idx)}>Remove</button>
                 </li>
               ))}
-              <button onClick={() => console.log(this.state.groceries)}>
-                Checkout
-              </button>
+              <div>
+                <button
+                  onClick={() => {
+                    this.checkout();
+                    console.log(this.state.groceries);
+                  }}
+                >
+                  Checkout
+                </button>
+                <button
+                  onClick={() => {
+                    this.startOver();
+                  }}
+                >
+                  Start Over
+                </button>
+              </div>
             </ol>
             {/* <h4>{this.state.groceries.map[() => this.state.groceries.item]}</h4> */}
+          </div>
+          <div className='purchased_list'>
+            {this.state.purchased_groceries.map((grocery, idx) => (
+              <li key={idx}>
+                Item:{' ' + grocery.item + ' '}
+                Quantity:{' ' + grocery.quantity + ' '}
+                Units:{grocery.units + ' '}
+              </li>
+            ))}
           </div>
 
           {/* <h4>Item: {this.state.groceries[0]}</h4>
