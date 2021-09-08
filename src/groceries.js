@@ -31,6 +31,7 @@ export class Groceries extends Component {
       quantity: 0,
       isPurchased: false,
     });
+    console.log(this.state.groceries);
     // });
   };
 
@@ -75,7 +76,7 @@ export class Groceries extends Component {
             <h2 className='container_title'>Add Groceries</h2>
 
             <form id='input_form' onSubmit={this.handleSubmit}>
-              <lable htmlFor='item'>Item</lable>
+              <label htmlFor='item'>Item</label>
               <input
                 id='item'
                 onChange={this.handleChange}
@@ -84,7 +85,7 @@ export class Groceries extends Component {
                 required
               />
 
-              <lable htmlFor='quantity'>Quantity</lable>
+              <label htmlFor='quantity'>Quantity</label>
               <input
                 id='quantity'
                 onChange={this.handleChange}
@@ -92,7 +93,7 @@ export class Groceries extends Component {
                 type='text'
                 required
               />
-              <lable htmlFor='quantity'>Select Unit</lable>
+              <label htmlFor='quantity'>Select Unit</label>
               <select
                 name='unit'
                 id='units'
